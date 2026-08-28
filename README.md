@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Noirly Admin
 
-## Getting Started
+Premium portfolio CMS for managing dynamic content on [noirly-portfolio](../portfolio). Content is stored in **MongoDB** and media uploads go to **Cloudflare R2**.
 
-First, run the development server:
+## Features
+
+- Dashboard for profile, projects, experience, skills, and **theme**
+- Image uploads to Cloudflare R2 with presigned URLs
+- Public read API for the portfolio site (`GET /api/public/content`)
+- Password-protected admin session (JWT cookie)
+- Dark gold Noirly design system
+
+## Setup
+
+1. Copy environment variables:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configure:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+|----------|-------------|
+| `MONGODB_URI` | MongoDB connection string |
+| `ADMIN_PASSWORD` | Admin login password |
+| `ADMIN_SESSION_SECRET` | JWT signing secret (optional; falls back to password) |
+| `R2_ACCOUNT_ID` | Cloudflare account ID |
+| `R2_ACCESS_KEY_ID` | R2 API token access key |
+| `R2_SECRET_ACCESS_KEY` | R2 API token secret |
+| `R2_BUCKET_NAME` | R2 bucket name |
+| `R2_PUBLIC_URL` | Public CDN URL for uploaded assets |
+| `PORTFOLIO_ORIGIN` | Allowed CORS origins (comma-separated) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Seed the database with current portfolio content:
 
-## Learn More
+```bash
+npm run seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start the dev server (default port 3000; use 3001 if portfolio uses 3000):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev -- -p 3001
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Portfolio integration
 
-## Deploy on Vercel
+In the portfolio project, set:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+PORTFOLIO_CONTENT_API_URL=http://localhost:3001
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The portfolio will fetch content from the admin API and fall back to static `data/` files if the API is unavailable.
+
+## API
+
+| Endpoint | Auth | Description |
+|----------|------|-------------|
+| `GET /api/public/content` | None | Full portfolio payload for the live site |
+| `PUT /api/admin/profile` | Session | Update profile |
+| `GET/POST /api/admin/projects` | Session | List/create projects |
+| `PUT/DELETE /api/admin/projects/:id` | Session | Update/delete project |
+| `GET/PUT /api/admin/theme` | Session | List themes / set portfolio palette |
+| `POST /api/admin/upload` | Session | Get presigned R2 upload URL (custom logos) |

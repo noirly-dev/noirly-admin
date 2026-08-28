@@ -1,0 +1,24 @@
+<svg width="384" height="396" viewBox="0 0 384 396" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M192 5.7735L358.277 101.773V293.773L192 389.773L25.7231 293.773V101.773L192 5.7735Z" stroke="currentColor" stroke-width="10"/>
+<path d="M192 61.7735L309.779 129.773V265.773L192 333.773L74.2205 265.773V129.773L192 61.7735Z" stroke="currentColor" stroke-width="4" stroke-dasharray="10 6"/>
+<path d="M192 109.773L268.21 153.773V241.773L192 285.773L115.79 241.773V153.773L192 109.773Z" stroke="currentColor" stroke-width="3"/>
+<path opacity="0.6" d="M192 108.773V65.7735" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M114.094 152.612L78 131.773" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M269.953 152.693L306.047 131.854" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M270 242.773L306.396 263.787" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M114.047 242.854L77.9532 263.693" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M192 287.773L192 329.773" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M72.211 266.773L33 289.412" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M192 381.773V336.773" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M312 266.774L351.959 289.844" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M311.895 128.593L351.105 105.954" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M192 58.7735V13.7735" stroke="currentColor" stroke-width="2"/>
+<path opacity="0.6" d="M72.211 128.412L33 105.773" stroke="currentColor" stroke-width="2"/>
+<!-- Admin mark: three control sliders, bare filled shapes, no outer box -->
+<rect x="148" y="167" width="88" height="6" rx="3" fill="currentColor"/>
+<circle cx="172" cy="170" r="11" fill="currentColor"/>
+<rect x="148" y="195" width="88" height="6" rx="3" fill="currentColor"/>
+<circle cx="214" cy="198" r="11" fill="currentColor"/>
+<rect x="148" y="223" width="88" height="6" rx="3" fill="currentColor"/>
+<circle cx="190" cy="226" r="11" fill="currentColor"/>
+</svg>
