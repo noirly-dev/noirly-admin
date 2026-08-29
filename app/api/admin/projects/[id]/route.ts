@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { ProjectModel } from "@/lib/db/models/Project";
 import { projectSchema } from "@/lib/validation/schemas";
@@ -33,6 +34,7 @@ export async function PUT(request: Request, { params }: Params) {
       ProjectModel.findByIdAndUpdate(id, { $set: parsed.data }, { new: true }).lean(),
     );
     if (!project) return errorResponse("Project not found", 404);
+    await revalidatePortfolio();
     return jsonResponse(project);
   } catch (error) {
     if (error instanceof Response) return error;
@@ -46,6 +48,7 @@ export async function DELETE(_request: Request, { params }: Params) {
     const { id } = await params;
     const project = await withDb(() => ProjectModel.findByIdAndDelete(id).lean());
     if (!project) return errorResponse("Project not found", 404);
+    await revalidatePortfolio();
     return jsonResponse({ ok: true });
   } catch (error) {
     if (error instanceof Response) return error;

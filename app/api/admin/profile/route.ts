@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { ProfileModel } from "@/lib/db/models/Profile";
 import { profileSchema } from "@/lib/validation/schemas";
@@ -34,6 +35,7 @@ export async function PUT(request: Request) {
       ).lean(),
     );
 
+    await revalidatePortfolio();
     return jsonResponse(profile);
   } catch (error) {
     if (error instanceof Response) return error;

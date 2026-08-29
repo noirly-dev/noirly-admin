@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { ProjectModel } from "@/lib/db/models/Project";
 import { projectSchema } from "@/lib/validation/schemas";
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
       ProjectModel.create({ ...parsed.data, order: parsed.data.order ?? count }),
     );
 
+    await revalidatePortfolio();
     return jsonResponse(project, 201);
   } catch (error) {
     if (error instanceof Response) return error;

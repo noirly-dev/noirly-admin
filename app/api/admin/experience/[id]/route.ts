@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { ExperienceModel } from "@/lib/db/models/Experience";
 import { experienceSchema } from "@/lib/validation/schemas";
@@ -20,6 +21,7 @@ export async function PUT(request: Request, { params }: Params) {
       ExperienceModel.findByIdAndUpdate(id, { $set: parsed.data }, { new: true }).lean(),
     );
     if (!item) return errorResponse("Experience not found", 404);
+    await revalidatePortfolio();
     return jsonResponse(item);
   } catch (error) {
     if (error instanceof Response) return error;
@@ -33,6 +35,7 @@ export async function DELETE(_request: Request, { params }: Params) {
     const { id } = await params;
     const item = await withDb(() => ExperienceModel.findByIdAndDelete(id).lean());
     if (!item) return errorResponse("Experience not found", 404);
+    await revalidatePortfolio();
     return jsonResponse({ ok: true });
   } catch (error) {
     if (error instanceof Response) return error;

@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { SettingsModel } from "@/lib/db/models/Settings";
 import { DEFAULT_THEME_ID, getTheme, PORTFOLIO_THEMES } from "@/lib/themes/manifest";
@@ -48,6 +49,7 @@ export async function PUT(request: Request) {
     );
 
     const theme = getTheme(settings.themeId)!;
+    await revalidatePortfolio();
     return jsonResponse({ themeId: theme.id, themeName: theme.name });
   } catch (error) {
     if (error instanceof Response) return error;

@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/content/service";
+import { revalidatePortfolio } from "@/lib/content/revalidate-portfolio";
 import { withDb } from "@/lib/db/mongodb";
 import { SkillModel } from "@/lib/db/models/Skill";
 import { skillSchema } from "@/lib/validation/schemas";
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
     const item = await withDb(() =>
       SkillModel.create({ ...parsed.data, order: parsed.data.order ?? count }),
     );
+    await revalidatePortfolio();
     return jsonResponse(item, 201);
   } catch (error) {
     if (error instanceof Response) return error;
