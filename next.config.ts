@@ -6,9 +6,13 @@ const r2Host = process.env.R2_PUBLIC_URL
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: r2Host
-      ? [{ protocol: "https", hostname: r2Host, pathname: "/**" }]
-      : [],
+    remotePatterns: [
+      { protocol: "http", hostname: "localhost", pathname: "/**" },
+      { protocol: "http", hostname: "127.0.0.1", pathname: "/**" },
+      ...(r2Host
+        ? [{ protocol: "https" as const, hostname: r2Host, pathname: "/**" }]
+        : []),
+    ],
   },
 };
 

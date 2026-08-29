@@ -5,7 +5,7 @@ Premium portfolio CMS for managing dynamic content on [noirly-portfolio](../port
 ## Features
 
 - Dashboard for profile, projects, experience, skills, and **theme**
-- Image uploads to Cloudflare R2 with presigned URLs
+- Image uploads to Cloudflare R2 (server-side); local `public/uploads` fallback in development
 - Public read API for the portfolio site (`GET /api/public/content`)
 - Password-protected admin session (JWT cookie)
 - Dark gold Noirly design system
@@ -63,4 +63,4 @@ The portfolio will fetch content from the admin API and fall back to static `dat
 | `GET/POST /api/admin/projects` | Session | List/create projects |
 | `PUT/DELETE /api/admin/projects/:id` | Session | Update/delete project |
 | `GET/PUT /api/admin/theme` | Session | List themes / set portfolio palette |
-| `POST /api/admin/upload` | Session | Get presigned R2 upload URL (custom logos) |
+| `POST /api/admin/upload` | Session | Upload image (multipart `file` + optional `folder`) |
