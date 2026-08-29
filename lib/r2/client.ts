@@ -7,36 +7,57 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { randomUUID } from "crypto";
 import { mkdir, writeFile } from "fs/promises";
 import { dirname, join } from "path";
+import { saveMedia } from "@/lib/media/store";
 
 let client: S3Client | null = null;
 
-export function isR2Configured(): boolean {
+function resolveR2AccountId(): string | undefined {
+  const explicit = process.env.R2_ACCOUNT_ID?.trim();
+  if (explicit) return explicit;
+
+  const publicUrl = process.env.R2_PUBLIC_URL?.trim();
+  if (!publicUrl) return undefined;
+
+  try {
+    const match = new URL(publicUrl).hostname.match(
+      /^([a-f0-9]{32})\.r2\.cloudflarestorage\.com$/i,
+    );
+    return match?.[1];
+  } catch {
+    return undefined;
+  }
+}
+
+/** True when the server can write objects to R2 (needs API keys + bucket). */
+export function canWriteToR2(): boolean {
   return Boolean(
-    process.env.R2_ACCOUNT_ID?.trim() &&
+    resolveR2AccountId() &&
       process.env.R2_ACCESS_KEY_ID?.trim() &&
       process.env.R2_SECRET_ACCESS_KEY?.trim() &&
-      process.env.R2_BUCKET_NAME?.trim() &&
-      process.env.R2_PUBLIC_URL?.trim(),
+      process.env.R2_BUCKET_NAME?.trim(),
   );
+}
+
+/** @deprecated Use canWriteToR2() */
+export function isR2Configured(): boolean {
+  return canWriteToR2();
 }
 
 function getR2Client(): S3Client {
   if (client) return client;
 
-  const accountId = process.env.R2_ACCOUNT_ID?.trim();
+  const accountId = resolveR2AccountId();
   const accessKeyId = process.env.R2_ACCESS_KEY_ID?.trim();
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim();
 
   if (!accountId || !accessKeyId || !secretAccessKey) {
-    throw new Error("R2 credentials are not configured");
+    throw new Error("R2 write credentials are not configured");
   }
 
   client = new S3Client({
     region: "auto",
     endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
     credentials: { accessKeyId, secretAccessKey },
-    // AWS SDK v3.729+ signs CRC32 checksums into presigned URLs; browsers
-    // don't send them, which breaks R2 PUTs. Only checksum when required.
     requestChecksumCalculation: "WHEN_REQUIRED",
     responseChecksumValidation: "WHEN_REQUIRED",
   });
@@ -47,7 +68,7 @@ function getR2Client(): S3Client {
 export function getPublicUrl(key: string): string {
   const base = process.env.R2_PUBLIC_URL?.replace(/\/$/, "").trim();
   if (!base) {
-    throw new Error("R2_PUBLIC_URL is required for public asset URLs");
+    throw new Error("R2_PUBLIC_URL is required for R2 asset URLs");
   }
   return `${base}/${key}`;
 }
@@ -114,35 +135,51 @@ async function uploadLocal(
   return { key, publicUrl: `${base}/uploads/${key}` };
 }
 
-/** Upload an image to R2 when configured, otherwise to local public/uploads. */
+function mediaPublicUrl(publicBaseUrl: string, key: string): string {
+  const base = publicBaseUrl.replace(/\/$/, "");
+  return `${base}/api/media/${key
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/")}`;
+}
+
+/** Upload to R2 when API keys exist; otherwise MongoDB (or local files in dev). */
 export async function uploadImage(
   buffer: Buffer,
   filename: string,
   contentType: string,
   folder = "portfolio",
   publicBaseUrl?: string,
-): Promise<{ key: string; publicUrl: string; storage: "r2" | "local" }> {
-  if (isR2Configured()) {
+): Promise<{ key: string; publicUrl: string; storage: "r2" | "local" | "mongo" }> {
+  if (canWriteToR2()) {
     const result = await uploadBuffer(buffer, filename, contentType, folder);
     return { ...result, storage: "r2" };
   }
 
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(
-      "R2 credentials are not configured. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME, and R2_PUBLIC_URL.",
-    );
+  const key = buildObjectKey(filename, folder);
+
+  if (process.env.MONGODB_URI?.trim()) {
+    if (!publicBaseUrl) {
+      throw new Error("Missing request origin for media URL");
+    }
+    await saveMedia(key, contentType, buffer);
+    return {
+      key,
+      publicUrl: mediaPublicUrl(publicBaseUrl, key),
+      storage: "mongo",
+    };
   }
 
-  if (!publicBaseUrl) {
-    throw new Error("Missing request origin for local upload URL");
+  if (publicBaseUrl && process.env.NODE_ENV !== "production") {
+    const result = await uploadLocal(buffer, filename, folder, publicBaseUrl);
+    return { ...result, storage: "local" };
   }
 
-  const result = await uploadLocal(buffer, filename, folder, publicBaseUrl);
-  return { ...result, storage: "local" };
+  throw new Error("Upload storage is unavailable");
 }
 
 export async function deleteObject(key: string) {
-  if (!isR2Configured()) return;
+  if (!canWriteToR2()) return;
 
   const bucket = process.env.R2_BUCKET_NAME;
   if (!bucket) throw new Error("R2_BUCKET_NAME is required");
