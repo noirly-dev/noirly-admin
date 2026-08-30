@@ -33,12 +33,12 @@ export default function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl font-semibold">Projects</h2>
+          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Projects</h2>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">
             Featured work shown on the portfolio homepage.
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/dashboard/projects/new">
             <Plus size={16} />
             New project
@@ -58,9 +58,9 @@ export default function ProjectsPage() {
         <div className="grid gap-4">
           {projects.map((project) => (
             <Card key={project._id}>
-              <CardHeader className="flex-row items-start justify-between gap-4 space-y-0">
+              <CardHeader className="gap-4 space-y-0 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <CardTitle>{project.title}</CardTitle>
                     <Badge>{project.type}</Badge>
                     {!project.published ? (
@@ -71,7 +71,7 @@ export default function ProjectsPage() {
                     {project.description}
                   </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex shrink-0 gap-2">
                   <Button asChild variant="secondary" size="icon">
                     <Link href={`/dashboard/projects/${project._id}`}>
                       <Pencil size={14} />

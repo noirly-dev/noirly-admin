@@ -77,7 +77,7 @@ export default function ExperiencePage() {
     <div className="space-y-6 pb-24">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl font-semibold">Experience</h2>
+          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Experience</h2>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">
             Work history and achievements shown on the portfolio.
           </p>

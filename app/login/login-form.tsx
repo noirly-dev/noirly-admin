@@ -37,7 +37,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10 sm:px-6">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="aura -left-20 top-20 h-[28rem] w-[28rem]" />
         <div className="aura right-[-10%] bottom-0 h-[24rem] w-[24rem]" />

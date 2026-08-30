@@ -79,7 +79,7 @@ export default function SkillsPage() {
     <div className="space-y-6 pb-24">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl font-semibold">Skills</h2>
+          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Skills</h2>
           <p className="mt-2 text-sm text-[var(--muted-foreground)]">
             Technology stack cards with icon keys mapped in the portfolio.
           </p>
@@ -133,7 +133,7 @@ export default function SkillsPage() {
                   <select
                     value={item.iconKey}
                     onChange={(e) => updateItem(index, { iconKey: e.target.value })}
-                    className="flex h-10 w-full rounded-xl border border-[var(--hairline)] bg-[var(--surface)] px-3 text-sm"
+                    className="flex h-10 w-full rounded-xl border border-[var(--hairline)] bg-[var(--surface)] px-3 text-base sm:text-sm"
                   >
                     {ICON_OPTIONS.map((key) => (
                       <option key={key} value={key}>

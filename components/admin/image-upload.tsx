@@ -67,13 +67,13 @@ export function ImageUploadField({
   return (
     <div className={cn("space-y-2 sm:col-span-2", className)}>
       <Label>{label}</Label>
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         <button
           type="button"
           onClick={openPicker}
           disabled={uploading}
           aria-label={value ? "Replace image" : "Upload image"}
-          className="group relative flex h-24 w-24 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-[var(--hairline)] bg-[var(--surface-2)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="group relative flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-[var(--hairline)] bg-[var(--surface-2)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] disabled:cursor-not-allowed disabled:opacity-60 sm:h-24 sm:w-24"
         >
           {value ? (
             <>
@@ -130,7 +130,7 @@ export function ImageUploadField({
             value={value ?? ""}
             onChange={(e) => onChange(e.target.value || null)}
             placeholder="Or paste a URL"
-            className="h-9 w-full rounded-lg border border-[var(--hairline)] bg-[var(--surface)] px-3 text-xs"
+            className="h-10 w-full rounded-lg border border-[var(--hairline)] bg-[var(--surface)] px-3 text-base sm:h-9 sm:text-xs"
           />
           {error ? <p className="text-xs text-red-400">{error}</p> : null}
           <p className="text-xs text-[var(--muted-foreground)]">
@@ -152,8 +152,12 @@ export function SaveBar({
   label?: string;
 }) {
   return (
-    <div className="sticky bottom-0 z-10 -mx-6 border-t border-[var(--hairline)] bg-[var(--bg)]/90 px-6 py-4 backdrop-blur-xl sm:-mx-8 sm:px-8">
-      <Button onClick={onSave} disabled={saving} className="min-w-[140px]">
+    <div className="sticky bottom-0 z-10 -mx-4 border-t border-[var(--hairline)] bg-[var(--bg)]/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl sm:-mx-6 sm:px-6 sm:py-4 lg:-mx-8 lg:px-8">
+      <Button
+        onClick={onSave}
+        disabled={saving}
+        className="w-full sm:w-auto sm:min-w-[140px]"
+      >
         {saving ? "Saving…" : label}
       </Button>
     </div>
