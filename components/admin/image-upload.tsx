@@ -3,8 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { Upload, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Button, Label } from "@noirly-dev/ui";
 import { cn } from "@/lib/utils";
 
 interface ImageUploadFieldProps {

@@ -1,9 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from "@noirly-dev/ui";
 
 export function jsonResponse(data: unknown, status = 200) {
   return Response.json(data, { status });

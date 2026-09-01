@@ -3,9 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
+import { AppSidebar, type AppNavItem, cn } from "@noirly-dev/ui";
 import { AdminLogo } from "@/components/admin/admin-logo";
 import { isNavItemActive, NAV_ITEMS } from "@/components/admin/nav-items";
-import { cn } from "@/lib/utils";
+
+const SIDEBAR_ITEMS: AppNavItem[] = NAV_ITEMS.map(({ href, label, icon }) => ({
+  href,
+  label,
+  icon: icon as AppNavItem["icon"],
+  match: href === "/dashboard" ? "exact" : "prefix",
+}));
 
 export function SidebarBrand({ className }: { className?: string }) {
   return (
@@ -73,16 +80,11 @@ export function SignOutButton({ className }: { className?: string }) {
 
 export function AdminSidebar() {
   return (
-    <aside className="sticky top-0 hidden h-dvh min-h-dvh w-[260px] shrink-0 flex-col border-r border-[var(--hairline)] bg-[var(--surface)]/80 backdrop-blur-xl lg:flex">
-      <div className="border-b border-[var(--hairline)] p-6">
-        <SidebarBrand />
-      </div>
-
-      <SidebarNav />
-
-      <div className="mt-auto p-4">
-        <SignOutButton />
-      </div>
-    </aside>
+    <AppSidebar
+      className="sticky top-0 hidden lg:flex"
+      brand={<SidebarBrand />}
+      items={SIDEBAR_ITEMS}
+      footer={<SignOutButton />}
+    />
   );
 }

@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button, Input, Textarea, Label, Switch, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
 import { ImageUploadField, SaveBar } from "@/components/admin/image-upload";
 import { FeatureGraphicPreview } from "@/components/admin/feature-graphic-preview";
 import type { Project } from "@/lib/types/portfolio";

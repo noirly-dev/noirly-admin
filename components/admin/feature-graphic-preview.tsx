@@ -1,8 +1,7 @@
 "use client";
 
 import { Palette } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Label } from "@noirly-dev/ui";
 import { ProjectFeatureGraphic } from "@/components/admin/project-feature-graphic";
 
 interface FeatureGraphicPreviewProps {

@@ -7,8 +7,7 @@ import { ProjectModel } from "@/lib/db/models/Project";
 import { SettingsModel } from "@/lib/db/models/Settings";
 import { SkillModel } from "@/lib/db/models/Skill";
 import { DEFAULT_THEME_ID, getTheme } from "@/lib/themes/manifest";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Badge } from "@noirly-dev/ui";
 
 async function getStats() {
   try {
