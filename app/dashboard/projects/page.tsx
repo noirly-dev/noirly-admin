@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import { Button, Badge, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Button, Badge, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import type { Project } from "@/lib/types/portfolio";
 
 export default function ProjectsPage() {
@@ -29,20 +29,18 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Projects</h2>
-          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-            Featured work shown on the portfolio homepage.
-          </p>
-        </div>
-        <Button asChild className="w-full sm:w-auto">
-          <Link href="/dashboard/projects/new">
-            <Plus size={16} />
-            New project
-          </Link>
-        </Button>
-      </div>
+      <PageHeader
+        title="Projects"
+        lead="Featured work shown on the portfolio homepage."
+        action={
+          <Button asChild className="w-full sm:w-auto">
+            <Link href="/dashboard/projects/new">
+              <Plus size={16} />
+              New project
+            </Link>
+          </Button>
+        }
+      />
 
       {loading ? (
         <p className="text-sm text-[var(--muted-foreground)]">Loading projects…</p>

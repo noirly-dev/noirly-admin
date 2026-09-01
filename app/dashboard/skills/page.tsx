@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import { Button, Input, Label, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Button, Input, Label, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import { SaveBar } from "@/components/admin/image-upload";
 import type { Skill } from "@/lib/types/portfolio";
 
@@ -74,31 +74,29 @@ export default function SkillsPage() {
 
   return (
     <div className="space-y-6 pb-24">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Skills</h2>
-          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-            Technology stack cards with icon keys mapped in the portfolio.
-          </p>
-        </div>
-        <Button
-          onClick={() =>
-            setItems((prev) => [
-              ...prev,
-              {
-                label: "",
-                category: "Frontend & Languages",
-                color: "#61DAFB",
-                iconKey: "react",
-                order: prev.length,
-              },
-            ])
-          }
-        >
-          <Plus size={16} />
-          Add skill
-        </Button>
-      </div>
+      <PageHeader
+        title="Skills"
+        lead="Technology stack cards with icon keys mapped in the portfolio."
+        action={
+          <Button
+            onClick={() =>
+              setItems((prev) => [
+                ...prev,
+                {
+                  label: "",
+                  category: "Frontend & Languages",
+                  color: "#61DAFB",
+                  iconKey: "react",
+                  order: prev.length,
+                },
+              ])
+            }
+          >
+            <Plus size={16} />
+            Add skill
+          </Button>
+        }
+      />
 
       {loading ? (
         <p className="text-sm text-[var(--muted-foreground)]">Loading skills…</p>

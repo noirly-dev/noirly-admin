@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
-import { AppSidebar, type AppNavItem, cn } from "@noirly-dev/ui";
+import {
+  AppSidebar,
+  SidebarBrand as UISidebarBrand,
+  type AppNavItem,
+  cn,
+} from "@noirly-dev/ui";
 import { AdminLogo } from "@/components/admin/admin-logo";
 import { isNavItemActive, NAV_ITEMS } from "@/components/admin/nav-items";
 
@@ -14,17 +19,14 @@ const SIDEBAR_ITEMS: AppNavItem[] = NAV_ITEMS.map(({ href, label, icon }) => ({
   match: href === "/dashboard" ? "exact" : "prefix",
 }));
 
-export function SidebarBrand({ className }: { className?: string }) {
+export function AdminSidebarBrand({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center gap-3.5", className)}>
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-soft)] p-1 text-[var(--accent)] sm:h-16 sm:w-16">
-        <AdminLogo />
-      </div>
-      <div>
-        <p className="font-display text-sm font-semibold">Noirly Admin</p>
-        <p className="text-xs text-[var(--muted-foreground)]">Portfolio CMS</p>
-      </div>
-    </div>
+    <UISidebarBrand
+      className={className}
+      logo={<AdminLogo />}
+      title="Noirly Admin"
+      subtitle="Portfolio CMS"
+    />
   );
 }
 
@@ -32,7 +34,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-1 flex-col gap-1 p-4">
+    <nav className="flex flex-1 flex-col gap-1 px-4 py-4">
       {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
         const active = isNavItemActive(pathname, href);
         return (
@@ -82,7 +84,7 @@ export function AdminSidebar() {
   return (
     <AppSidebar
       className="sticky top-0 hidden lg:flex"
-      brand={<SidebarBrand />}
+      brand={<AdminSidebarBrand />}
       items={SIDEBAR_ITEMS}
       footer={<SignOutButton />}
     />

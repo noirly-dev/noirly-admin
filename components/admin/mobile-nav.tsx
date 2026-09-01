@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import {
-  SidebarBrand,
+  AdminSidebarBrand,
   SidebarNav,
   SignOutButton,
 } from "@/components/admin/sidebar";
@@ -52,8 +52,8 @@ export function MobileNav() {
             Jump to a section of the Noirly content studio.
           </Dialog.Description>
 
-          <div className="flex items-start justify-between gap-3 border-b border-[var(--hairline)] p-4">
-            <SidebarBrand />
+          <div className="flex items-start justify-between gap-3 border-b border-[var(--hairline)] px-4 py-4">
+            <AdminSidebarBrand />
             <Dialog.Close
               aria-label="Close navigation"
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[var(--muted-foreground)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
@@ -66,7 +66,7 @@ export function MobileNav() {
             <SidebarNav onNavigate={() => setOpen(false)} />
           </div>
 
-          <div className="border-t border-[var(--hairline)] p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <div className="border-t border-[var(--hairline)] px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
             <SignOutButton />
           </div>
         </Dialog.Content>

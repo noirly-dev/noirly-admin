@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Check, Palette } from "lucide-react";
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Check } from "lucide-react";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import { SaveBar } from "@/components/admin/image-upload";
 import { cn } from "@/lib/utils";
 
@@ -123,19 +123,10 @@ export default function ThemePage() {
 
   return (
     <div className="space-y-6 pb-24">
-      <div>
-        <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
-            <Palette size={18} />
-          </div>
-          <div className="min-w-0">
-            <h2 className="font-display text-2xl font-semibold sm:text-3xl">Theme</h2>
-            <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-              Choose the color palette for the portfolio and this admin dashboard. All themes are WCAG AA verified.
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="Theme"
+        lead="Choose the color palette for the portfolio and this admin dashboard. All themes are WCAG AA verified."
+      />
 
       {message ? <p className="text-sm text-[var(--accent)]">{message}</p> : null}
 

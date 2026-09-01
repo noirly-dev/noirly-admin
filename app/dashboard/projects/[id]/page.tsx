@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Input, Textarea, Label, Switch, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Button, Input, Textarea, Label, Switch, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import { ImageUploadField, SaveBar } from "@/components/admin/image-upload";
 import { FeatureGraphicPreview } from "@/components/admin/feature-graphic-preview";
 import type { Project } from "@/lib/types/portfolio";
@@ -78,21 +78,19 @@ export default function ProjectEditorPage({
 
   return (
     <div className="space-y-6 pb-24">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-            {isNew ? "New project" : "Edit project"}
-          </h2>
-        </div>
-        <div className="flex items-center gap-3">
-          <Label htmlFor="published">Published</Label>
-          <Switch
-            id="published"
-            checked={project.published}
-            onCheckedChange={(published) => setProject({ ...project, published })}
-          />
-        </div>
-      </div>
+      <PageHeader
+        title={isNew ? "New project" : "Edit project"}
+        action={
+          <div className="flex items-center gap-3">
+            <Label htmlFor="published">Published</Label>
+            <Switch
+              id="published"
+              checked={project.published}
+              onCheckedChange={(published) => setProject({ ...project, published })}
+            />
+          </div>
+        }
+      />
 
       <Card>
         <CardHeader>

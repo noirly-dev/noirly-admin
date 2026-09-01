@@ -7,7 +7,7 @@ import { ProjectModel } from "@/lib/db/models/Project";
 import { SettingsModel } from "@/lib/db/models/Settings";
 import { SkillModel } from "@/lib/db/models/Skill";
 import { DEFAULT_THEME_ID, getTheme } from "@/lib/themes/manifest";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, Badge } from "@noirly-dev/ui";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Badge, PageHeader } from "@noirly-dev/ui";
 
 async function getStats() {
   try {
@@ -41,25 +41,23 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Overview</h2>
-          <p className="mt-2 max-w-xl text-sm text-[var(--muted-foreground)]">
-            Manage portfolio content stored in MongoDB. Images upload to Cloudflare R2 and sync to your live site via the public content API.
-          </p>
-        </div>
-        {portfolioUrl ? (
-          <Link
-            href={portfolioUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--hairline)] px-4 py-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] sm:w-auto"
-          >
-            View portfolio
-            <ExternalLink size={14} />
-          </Link>
-        ) : null}
-      </div>
+      <PageHeader
+        title="Overview"
+        lead="Manage portfolio content stored in MongoDB. Images upload to Cloudflare R2 and sync to your live site via the public content API."
+        action={
+          portfolioUrl ? (
+            <Link
+              href={portfolioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--hairline)] px-4 py-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] sm:w-auto"
+            >
+              View portfolio
+              <ExternalLink size={14} />
+            </Link>
+          ) : undefined
+        }
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {cards.map(({ href, label, icon: Icon, key }) => (

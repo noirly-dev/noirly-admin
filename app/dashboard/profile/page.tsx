@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button, Input, Textarea, Label, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Button, Input, Textarea, Label, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import { ImageUploadField, SaveBar } from "@/components/admin/image-upload";
 import type { Profile } from "@/lib/types/portfolio";
 
@@ -139,12 +139,10 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-6 pb-24">
-      <div>
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Profile</h2>
-        <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-          Hero copy, about section, contact links, and page subtitles.
-        </p>
-      </div>
+      <PageHeader
+        title="Profile"
+        lead="Hero copy, about section, contact links, and page subtitles."
+      />
 
       {message ? (
         <p className="text-sm text-[var(--accent)]">{message}</p>

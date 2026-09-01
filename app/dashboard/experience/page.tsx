@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
-import { Button, Input, Textarea, Label, Card, CardContent, CardHeader, CardTitle } from "@noirly-dev/ui";
+import { Button, Input, Textarea, Label, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@noirly-dev/ui";
 import { SaveBar } from "@/components/admin/image-upload";
 import type { WorkExperience } from "@/lib/types/portfolio";
 
@@ -71,25 +71,23 @@ export default function ExperiencePage() {
 
   return (
     <div className="space-y-6 pb-24">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-semibold sm:text-3xl">Experience</h2>
-          <p className="mt-2 text-sm text-[var(--muted-foreground)]">
-            Work history and achievements shown on the portfolio.
-          </p>
-        </div>
-        <Button
-          onClick={() =>
-            setItems((prev) => [
-              ...prev,
-              { role: "", company: "", period: "", achievements: [], order: prev.length },
-            ])
-          }
-        >
-          <Plus size={16} />
-          Add role
-        </Button>
-      </div>
+      <PageHeader
+        title="Experience"
+        lead="Work history and achievements shown on the portfolio."
+        action={
+          <Button
+            onClick={() =>
+              setItems((prev) => [
+                ...prev,
+                { role: "", company: "", period: "", achievements: [], order: prev.length },
+              ])
+            }
+          >
+            <Plus size={16} />
+            Add role
+          </Button>
+        }
+      />
 
       {loading ? (
         <p className="text-sm text-[var(--muted-foreground)]">Loading experience…</p>
