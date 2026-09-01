@@ -144,7 +144,7 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6 pb-24">
       <div>
-        <h2 className="font-display text-3xl font-semibold">Profile</h2>
+        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Profile</h2>
         <p className="mt-2 text-sm text-[var(--muted-foreground)]">
           Hero copy, about section, contact links, and page subtitles.
         </p>

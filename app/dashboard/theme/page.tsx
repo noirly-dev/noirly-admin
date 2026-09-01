@@ -125,12 +125,12 @@ export default function ThemePage() {
   return (
     <div className="space-y-6 pb-24">
       <div>
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent)]">
             <Palette size={18} />
           </div>
-          <div>
-            <h2 className="font-display text-3xl font-semibold">Theme</h2>
+          <div className="min-w-0">
+            <h2 className="font-display text-2xl font-semibold sm:text-3xl">Theme</h2>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">
               Choose the color palette for the portfolio and this admin dashboard. All themes are WCAG AA verified.
             </p>
@@ -163,14 +163,14 @@ export default function ThemePage() {
         <CardHeader>
           <CardTitle>Selected</CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-between gap-4">
+        <CardContent className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[var(--muted-foreground)]">
             Active theme:{" "}
             <span className="font-medium text-[var(--foreground)]">
               {themes.find((t) => t.id === selected)?.name ?? selected}
             </span>
           </p>
-          <Button variant="secondary" onClick={() => setSelected("gold")}>
+          <Button variant="secondary" className="w-full sm:w-auto" onClick={() => setSelected("gold")}>
             Reset to Warm Gold
           </Button>
         </CardContent>

@@ -83,9 +83,9 @@ export default function ProjectEditorPage({
 
   return (
     <div className="space-y-6 pb-24">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl font-semibold">
+          <h2 className="font-display text-2xl font-semibold sm:text-3xl">
             {isNew ? "New project" : "Edit project"}
           </h2>
         </div>

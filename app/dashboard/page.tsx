@@ -44,7 +44,7 @@ export default async function DashboardPage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl font-semibold tracking-tight">Overview</h2>
+          <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Overview</h2>
           <p className="mt-2 max-w-xl text-sm text-[var(--muted-foreground)]">
             Manage portfolio content stored in MongoDB. Images upload to Cloudflare R2 and sync to your live site via the public content API.
           </p>
@@ -54,7 +54,7 @@ export default async function DashboardPage() {
             href={portfolioUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-[var(--hairline)] px-4 py-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--hairline)] px-4 py-2 text-sm text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] sm:w-auto"
           >
             View portfolio
             <ExternalLink size={14} />
