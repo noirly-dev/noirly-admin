@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ThemeStyles, noirlyFontClassName } from "@noirly-dev/ui";
+import { NoirlyHead, noirlyFontClassName } from "@noirly-dev/ui";
 import { getActiveThemeId } from "@/lib/themes/get-active-theme";
 import "./globals.css";
 
@@ -19,14 +19,16 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${noirlyFontClassName} h-full dark`}
+      className="dark h-full"
       data-theme={themeId}
       suppressHydrationWarning
     >
       <head>
-        <ThemeStyles themeId={themeId} />
+        <NoirlyHead themeId={themeId} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={`${noirlyFontClassName} flex min-h-full flex-col antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
