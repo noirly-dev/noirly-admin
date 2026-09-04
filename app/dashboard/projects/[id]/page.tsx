@@ -56,12 +56,16 @@ export default function ProjectEditorPage({
 
   async function save() {
     setSaving(true);
+    const payload = {
+      ...project,
+      stack: project.stack.map((s) => s.trim()).filter(Boolean),
+    };
     const res = await fetch(
       isNew ? "/api/admin/projects" : `/api/admin/projects/${id}`,
       {
         method: isNew ? "POST" : "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(project),
+        body: JSON.stringify(payload),
       },
     );
     setSaving(false);
@@ -120,10 +124,11 @@ export default function ProjectEditorPage({
               onChange={(e) =>
                 setProject({
                   ...project,
-                  stack: e.target.value.split("\n").map((s) => s.trim()).filter(Boolean),
+                  stack: e.target.value.split("\n"),
                 })
               }
-              rows={3}
+              rows={5}
+              placeholder={"Next.js\nReact\nTypeScript"}
             />
           </div>
           <div className="space-y-2">
@@ -146,7 +151,7 @@ export default function ProjectEditorPage({
             title={project.title}
             type={project.type}
             description={project.description}
-            stack={project.stack}
+            stack={project.stack.map((s) => s.trim()).filter(Boolean)}
           />
           <div className="space-y-2 sm:col-span-2">
             <p className="text-sm text-[var(--muted-foreground)]">
