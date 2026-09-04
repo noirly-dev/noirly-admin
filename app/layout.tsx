@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NoirlyHead, noirlyFontClassName } from "@noirly-dev/ui";
+import { NoirlyExperience } from "@noirly-dev/ui/experience";
 import { getActiveThemeId } from "@/lib/themes/get-active-theme";
 import "./globals.css";
 
@@ -27,7 +28,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <NoirlyHead themeId={themeId} />
       </head>
       <body className={`${noirlyFontClassName} flex min-h-full flex-col antialiased`}>
-        {children}
+        <NoirlyExperience mark="Noirly Admin">{children}</NoirlyExperience>
       </body>
     </html>
   );
