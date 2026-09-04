@@ -1,3 +1,4 @@
 @import "tailwindcss";
+@source "../node_modules/@noirly-dev/ui/dist";
 @import "tw-animate-css";
 @import "@noirly-dev/ui/styles.css";
