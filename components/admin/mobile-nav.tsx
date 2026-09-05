@@ -9,6 +9,7 @@ import {
   SidebarNav,
   SignOutButton,
 } from "@/components/admin/sidebar";
+import { ThemeControls } from "@/components/ThemeControls";
 
 /** Matches the `lg` breakpoint where the persistent sidebar takes over. */
 const DESKTOP_QUERY = "(min-width: 1024px)";
@@ -66,7 +67,8 @@ export function MobileNav() {
             <SidebarNav onNavigate={() => setOpen(false)} />
           </div>
 
-          <div className="border-t border-[var(--hairline)] px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <div className="space-y-3 border-t border-[var(--hairline)] px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <ThemeControls size="sm" />
             <SignOutButton />
           </div>
         </Dialog.Content>

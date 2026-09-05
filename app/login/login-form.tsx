@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AuthShell, Button, Input, Label } from "@noirly-dev/ui";
 import { AdminLogo } from "@/components/admin/admin-logo";
+import { ThemeControls } from "@/components/ThemeControls";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,32 +35,33 @@ export default function LoginPage() {
   }
 
   return (
-    <AuthShell
-      title="Noirly Admin"
-      lead="Manage your portfolio content, projects, and media."
-    >
-      <div className="mb-6 flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--accent-soft)] p-1.5 text-[var(--accent)]">
-          <AdminLogo variant="full" />
-        </div>
+    <>
+      <div className="fixed top-4 right-4 z-20 sm:top-6 sm:right-6">
+        <ThemeControls size="sm" />
       </div>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="password">Admin password</Label>
-          <Input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            autoFocus
-          />
-        </div>
-        {error ? <p className="text-sm text-red-400">{error}</p> : null}
-        <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Signing in…" : "Sign in"}
-        </Button>
-      </form>
-    </AuthShell>
+      <AuthShell
+        title="Noirly Admin"
+        lead="Manage your portfolio content, projects, and media."
+        logo={<AdminLogo variant="full" className="h-14 w-14" />}
+      >
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="password">Admin password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              autoFocus
+            />
+          </div>
+          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Signing in…" : "Sign in"}
+          </Button>
+        </form>
+      </AuthShell>
+    </>
   );
 }

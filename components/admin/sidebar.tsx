@@ -11,6 +11,7 @@ import {
 } from "@noirly-dev/ui";
 import { AdminLogo } from "@/components/admin/admin-logo";
 import { isNavItemActive, NAV_ITEMS } from "@/components/admin/nav-items";
+import { ThemeControls } from "@/components/ThemeControls";
 
 const SIDEBAR_ITEMS: AppNavItem[] = NAV_ITEMS.map(({ href, label, icon }) => ({
   href,
@@ -86,7 +87,12 @@ export function AdminSidebar() {
       className="sticky top-0 hidden lg:flex"
       brand={<AdminSidebarBrand />}
       items={SIDEBAR_ITEMS}
-      footer={<SignOutButton />}
+      footer={
+        <div className="space-y-3">
+          <ThemeControls size="sm" />
+          <SignOutButton />
+        </div>
+      }
     />
   );
 }

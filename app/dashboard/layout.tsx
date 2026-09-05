@@ -1,5 +1,6 @@
 import { MobileNav } from "@/components/admin/mobile-nav";
 import { AdminSidebar } from "@/components/admin/sidebar";
+import { ThemeControls } from "@/components/ThemeControls";
 import { PageContainer, SHELL_GUTTER_CLASS } from "@noirly-dev/ui";
 
 export default function DashboardLayout({
@@ -13,8 +14,9 @@ export default function DashboardLayout({
       <div className="flex min-h-dvh min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 border-b border-[var(--hairline)] bg-[var(--bg)]/80 backdrop-blur-xl lg:hidden">
           <div className={SHELL_GUTTER_CLASS}>
-            <div className="flex items-center gap-3 py-4">
+            <div className="flex items-center justify-between gap-3 py-4">
               <MobileNav />
+              <ThemeControls size="sm" />
             </div>
           </div>
         </header>
